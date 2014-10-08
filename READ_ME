@@ -1,8 +1,12 @@
 [usage:]
-//how to use this lib ?
+//how to creat this lib ?
 
 gcc -c -fno-builtin -nostdlib -fno-stack-protector entry.c malloc.c stdio.c string.c print.c
 
 ar -rs minicrt.a malloc.o print.o stdio.o string.o
+
+//how to use the lib ?
+gcc -c -ggdb -fno-builtin -nostdlib -nostdlib -fno-stack-protector test.c
+ld -static -e mini_crt_entry entry.o test.o minicrt.a -o test
 
 

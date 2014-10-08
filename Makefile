@@ -1,7 +1,7 @@
 all:
-	gcc -c -fno-builtin -nostdlib -fno-stack-protector entry.c malloc.c stdio.c string.c print.c
+	gcc -c -fno-builtin -nostdlib -fno-stack-protector entry.c malloc.c stdio.c string.c printf.c
 
-	ar -rs minicrt.a malloc.o print.o stdio.o string.o	
+	ar -rs minicrt.a malloc.o printf.o stdio.o string.o	
 
 clean:
-	rm  *.o
+	rm -f *.o *.a
