@@ -1,0 +1,8 @@
+[usage:]
+//how to use this lib ?
+
+gcc -c -fno-builtin -nostdlib -fno-stack-protector entry.c malloc.c stdio.c string.c print.c
+
+ar -rs minicrt.a malloc.o print.o stdio.o string.o
+
+
