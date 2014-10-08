@@ -4,8 +4,8 @@
 typedef struct _heap_header{
 
   enum{
-	HEAP_BLOCK_FREE=0xABABABAB;
-      	HEAP_BLOCK_USED=0xCDCDCDCD;
+	HEAP_BLOCK_FREE = 0xABABABAB,
+      	HEAP_BLOCK_USED = 0xCDCDCDCD,
   }type;
 
   unsigned int size;
@@ -36,7 +36,7 @@ void free(void *ptr)
 		
 		header=header->prev;
 	}
-	if(hear->next!=NULL && header->next->type== HEAP_BLOCK_FREE){
+	if(header->next!=NULL && header->next->type== HEAP_BLOCK_FREE){
 		//MERGE
 		header->size+=header->next->size;
 		header->next=header->next->next;
@@ -63,14 +63,14 @@ void* malloc(unsigned size)
 	   header->type=HEAP_BLOCK_USED;  	
 	}
 
-	if(header->size > size+ HEADEr_SIZE*2)
+	if(header->size > size+ HEADER_SIZE*2)
 	{
 	  //split
 	  heap_header* next=(heap_header*)ADDR_ADD(header,size + HEADER_SIZE);
 	  next->prev=header;		
 	  next->next=header->next;
 	  next->type=HEAP_BLOCK_FREE;
-	  next->size=header->size - (size - HEADER_SZIE);
+	  next->size=header->size - (size - HEADER_SIZE);
 	  header->next=next;
 	  header->size=size + HEADER_SIZE;
 	  header->type=HEAP_BLOCK_USED;
@@ -78,7 +78,7 @@ void* malloc(unsigned size)
 	}
 	header = header->next;
       }
-	return NULL
+	return NULL;
 }
 
 #ifndef WIN32

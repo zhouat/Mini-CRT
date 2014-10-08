@@ -52,7 +52,7 @@ void do_global_ctors();
 void mini_crt_call_exit_routine();
 
 //atexit
-typedef void (*atexit_fun_t)(void);
+typedef void (*atexit_func_t)(void);
 int atexit(atexit_func_t func);
 
 #ifdef __cplusplus
