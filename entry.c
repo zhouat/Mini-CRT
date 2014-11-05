@@ -1,5 +1,10 @@
 //entry.c
+
 #include "minicrt.h"
+
+#ifndef DEBUG
+#define DEBUG 0
+#endif
 
 extern int main(int argc,char*argv[]);
 void exit(int);
@@ -14,16 +19,23 @@ void mini_crt_entry(void)
 {
 	int ret;
 	int argc;
-	char** argv;
-	char*ebp_reg=0;
+	char **argv;
+	char *ebp_reg=0;
+	int k=0;
+
 	asm(
 	"movl %%ebp,%0 \n"
 	:"=r"(ebp_reg)
 	);
 	
-	argc=*(int*)(ebp_reg+4);
+	argc=*((int*)(ebp_reg+4));
 	argv=(char**)(ebp_reg+8);
-	
+
+	if(DEBUG){
+	   printf("argc:[%d]\n", argc);
+	   while(k<argc)
+		printf("argv[%d]: [%s]\n", k, argv[k++]);
+	}	
 	if(!mini_crt_heap_init())
 	{
 		crt_fatal_error("heap init failed!\n");	

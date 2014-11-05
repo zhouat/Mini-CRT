@@ -4,11 +4,16 @@ char* itoa(int n, char* str, int radix){
 	char digit[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	char* p = str;
 	char* head = str;
+	int neg = 0;  //judge negative flag ==> '-'	
+
 	if(!p || radix<2 || radix >36)
 	  return p;
 	
 	if(radix !=10 && n<0)
-	  return p;
+	{
+	   // -|n| handle only radix=10   
+	   return p;	
+        }
 
 	if(n==0)
 	{
@@ -17,10 +22,11 @@ char* itoa(int n, char* str, int radix){
 	   return p;			
 	}	
 	
-	if(radix ==10 && n<10)
+	if(radix ==10 && n<0)
 	{
 	   *p++ ='-';
-	   n=-n;	
+	   n=-n;
+	   neg =1 ;		
 	}
 
 	while(n)
@@ -31,13 +37,17 @@ char* itoa(int n, char* str, int radix){
 	
 	*p = 0;
 
+	if(neg){  
+	   head++ ;   //skip '-' negtive symbol
+	}
+
 	for(--p; head<p; ++head, --p)
 	{
 	   char temp = *head;
 	   *head = *p;
 	   *p = temp;
 	}
-	
+
 	return str;
 }
 
@@ -86,6 +96,12 @@ unsigned strlen(const char* str){
 	return cnt;
 }
 
-
+void    memset(char* buf, int value, int len){
+	
+	int i=0;
+	for(i=0; i<len; i++){
+	  buf[i] = value;	
+	}
+}
 
 

@@ -29,7 +29,9 @@ static int read(int fd, void *buffer, unsigned size){
 	"movl $3,%%eax  \n\t"
 	"movl %1,%%ebx  \n\t"
 	"movl %2,%%ecx  \n\t"
+	"movl %3,%%edx  \n\t"
 	"int  $0x80     \n\t"
+	"movl %%eax,%0  \n\t"
 	:"=m"(ret):"m"(fd),"m"(buffer),"m"(size)	
 	);
 	
@@ -99,7 +101,7 @@ FILE *fopen(const char*filename,const char*mode){
 
 	if(strcmp(mode,"w+")==0)
 	{
-		flags |= O_RDWR | O_CREATE | O_TRUNC;
+		flags |= O_RDWR | O_CREATE ;
 	}
 
 	if(strcmp(mode,"r")==0)
